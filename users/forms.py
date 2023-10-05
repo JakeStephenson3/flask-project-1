@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email, ValidationError, length
+from wtforms.validators import DataRequired, Email, ValidationError, length, EqualTo
 import re
 
 
@@ -16,8 +16,10 @@ def password_validate(self, field):
     if not p.match(field.data):
         raise ValidationError("Password must contain at least 1 digit and one lowercase character.")
 
+
 class RegisterForm(FlaskForm):
     username = StringField(validators=[DataRequired(), Email(), character_check])
     password = PasswordField(validators=[DataRequired(), character_check, length(min=8, max=15), password_validate])
+    password_check = PasswordField(validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField()
 

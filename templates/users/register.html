@@ -23,6 +23,14 @@
                         {% endfor %}
                     </div>
                 </div>
+                <div class="field">
+                    <div class="control">
+                        {{ form.password_check(class="input", placeholder="Repeat Password") }}
+                        {% for error in form.password_check.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
                 <div>
 
                     {{ form.submit(class="button is-info is-centered") }}
