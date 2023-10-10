@@ -1,4 +1,5 @@
-import secrets
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template
 app = Flask(__name__)
 from blog.views import blog_blueprint
@@ -8,7 +9,9 @@ app.register_blueprint(main_blueprint)
 from users.views import users_blueprint
 app.register_blueprint(users_blueprint)
 
-app.config['SECRET_KEY'] = secrets.token_hex(16)
+load_dotenv()
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 
 @app.errorhandler(403)
